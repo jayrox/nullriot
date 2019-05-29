@@ -29,7 +29,6 @@
         
         
         portsToTry.forEach(async (port) => {
-            console.log(port)
             let res;
             let url;
             
@@ -42,7 +41,7 @@
                     logLine(localResultList, `<a href="${url}" rel="noopener" target="_blank">${url}</a>`);
                 }
             } catch (e) {
-                console.log(e);
+                console.log(`${url} - ${e.message}`);
             }
 
             // https
@@ -54,7 +53,7 @@
                     logLine(localResultList, `<a href="${url}" rel="noopener" target="_blank">${url}</a>`);
                 }
             } catch (e) {
-                console.log(e);
+                console.log(`${url} - ${e.message}`);
             }
         });
     </script>
