@@ -136,8 +136,8 @@
             const urlParams = new URLSearchParams(window.location.search);
             if(urlParams.has('u')) {
                 const u = urlParams.get('u');
-                if (u === 'https://reddit.com') {
-                    window.location.assign("/fakereddit.com");
+                if (u === 'https://reddit.com' || u === 'https://reddit.com/') {
+                    window.location.assign("/fakereddit.com.html");
                 }
             }
         </script>
