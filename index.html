@@ -11,8 +11,8 @@
             }
 
             #fakeContainer img {
-                height: 500px;
-                width: 500px;
+                height: 400px;
+                width: 400px;
                 display: inline-block;
             }
 
@@ -21,21 +21,37 @@
 
     <body>
         <div id="fakeContainer">
-            <h1>Hello and welcome to my blog of cat picturess.</h1>
-            <div>
-                <img
-                    src="https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-                <img src="https://cdn.pixabay.com/photo/2016/07/10/21/47/cat-1508613__340.jpg" />
-                <img src="https://wallpaperstream.com/wallpapers/full/cat/Cat-Close-Up-with-Dark-Background.jpg" />
-                <img
-                    src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" />
-            </div>>
+            <h1>Hello and welcome to my blog of RANDOM Cat Pictures!</h1>
+            <div id="catholder"></div>
         </div>
         <div id="container"></div>
         <script async>
+            const catHolder = document.getElementById('catholder');
+
+            function addCat(container, url) {
+                const img = document.createElement('img');
+                img.src = url;
+                container.appendChild(img);
+                container.scrollTop = container.scrollHeight;
+            }
+
+            async function getRandomCat() {
+                const res = await fetch('https://api.thecatapi.com/v1/images/search?size=full');
+                if (res.ok) {
+                    const j = await res.json();
+                    if (j[0].url) addCat(catHolder, j[0].url);
+                }
+            }
+
+            for (let i = 0; i < 9; i++) {
+                getRandomCat();
+            }
+
+        </script>
+        <script async>
             function addContent(container, url, text) {
                 const div = document.createElement('div');
-                div.innerHTML = text
+                div.innerHTML = text;
                 div.setAttribute('id', url);
                 container.appendChild(div);
                 container.scrollTop = container.scrollHeight;
@@ -51,7 +67,7 @@
                     5000, 5001, 5050, 5051, 5555,
                     6000, 6001, 6060, 6061, 6666,
                     7000, 7001, 7070, 7071, 7777,
-                    8000, 8001, 8080, 8081, 8888,
+                    //8000, 8001, 8080, 8081, 8888,
                     9000, 9001, 9090, 9091, 9999,
                 ];
 
