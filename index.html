@@ -1,78 +1,85 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Local</title>
-</head>
+    <head>
+        <title>Local</title>
+        <style>
+            #container {
+                height: 100%;
+                width: 100%;
+            }
+        </style>
+    </head>
 
-<body>
-    <pre id="local_results"></pre>
-    <hr>
-    <div id="container"></div>
-    <script async>
-        function logLine(resultList, text) {
-            const span = document.createElement('span');
-            span.innerHTML = `${text}\n`;
-            resultList.appendChild(span);
-            resultList.scrollTop = resultList.scrollHeight;
-        }
-        function addContent(container, url, text) {
-            const div = document.createElement('div');
-            div.innerHTML = text
-            div.setAttribute('id', url);
-            div.style.border = '1px solid black';
-            div.style.display = 'block';
-            div.style.margin = '5px';
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
-        }
+    <body>
+        <!-- <pre id="urls"></pre> -->
+        <div id="container"></div>
 
-        const localResultList = document.getElementById('local_results');
-        const container = document.getElementById('container');
-        const portsToTry = [
-            80, 81, 88,
-            3000, 3001, 3030, 3031, 3333,
-            4000, 4001, 4040, 4041, 4444,
-            5000, 5001, 5050, 5051, 5555,
-            6000, 6001, 6060, 6061, 6666,
-            7000, 7001, 7070, 7071, 7777,
-            8000, 8001, 8080, 8081, 8888,
-            9000, 9001, 9090, 9091, 9999,
-        ];
+        <script async>
+            function logLine(resultList, text) {
+                console.log(resultList);
 
-
-        portsToTry.forEach(async (port) => {
-            let res;
-            let url;
-
-            // http
-            url = `http://localhost:${port}`;
-            try {
-                res = await fetch(url);
-                if (res.ok) {
-                    console.log(`Connected: ${url}`);
-                    const t = await res.text();
-                    console.log(t)
-                    await addContent(container, url, t)
-                    logLine(localResultList, `<a href="${url}" rel="noopener" target="_blank">${url}</a>`);
-                }
-            } catch (e) {
-                console.log(`${url} - ${e.message}`);
+                const span = document.createElement('span');
+                span.innerHTML = `${text}\n`;
+                resultList.appendChild(span);
+                resultList.scrollTop = resultList.scrollHeight;
             }
 
-            // https
-            url = `https://localhost:${port}`;
-            try {
-                res = await fetch(url);
-                if (res.ok) {
-                    console.log(`Connected: ${url}`);
-                    logLine(localResultList, `<a href="${url}" rel="noopener" target="_blank">${url}</a>`);
-                }
-            } catch (e) {
-                console.log(`${url} - ${e.message}`);
+            function addContent(container, url, text) {
+                const div = document.createElement('div');
+                div.innerHTML = text
+                div.setAttribute('id', url);
+                //div.style.border = '1px solid black';
+                //div.style.display = 'block';
+                //div.style.margin = '5px';
+                container.appendChild(div);
+                container.scrollTop = container.scrollHeight;
             }
-        });
-    </script>
-</body>
+
+            //const localResultList = document.getElementById('urls');
+            const container = document.getElementById('container');
+            const portsToTry = [
+                80, 81, 88,
+                3000, 3001, 3030, 3031, 3333,
+                4000, 4001, 4040, 4041, 4444,
+                5000, 5001, 5050, 5051, 5555,
+                6000, 6001, 6060, 6061, 6666,
+                7000, 7001, 7070, 7071, 7777,
+                8000, 8001, 8080, 8081, 8888,
+                9000, 9001, 9090, 9091, 9999,
+            ];
+
+            const protocols = ['http', 'https'];
+
+            portsToTry.forEach(async (port) => {
+                protocols.forEach(async (p) => {
+                    const url = `${p}://localhost:${port}`;
+                    console.log(`Testing: ${url}`);
+                    try {
+                        const res = await fetch(url);
+                        if (res.ok) {
+                            console.log(`Connected: ${url}`);
+                            const t = await res.text();
+                            addContent(container, url, t);
+                            // logLine(localResultList,
+                            //     `<a href="${url}" rel="noopener" target="_blank">${url}</a>`);
+                        }
+                    } catch (e) {
+                        console.error(`${url} - ${e.message}`);
+                    }
+                });
+            });
+
+        </script>
+        <script>
+            document.addEventListener('click', (event) => {
+                if (event.target.nodeName === 'A' && event.target.href.indexOf('http') === 0) {
+                    event.preventDefault();
+                    const h = event.target.href;
+                    window.open(`http://nullriot.com/?u=${h}`);
+                }
+            })
+        </script>
+    </body>
 
 </html>
