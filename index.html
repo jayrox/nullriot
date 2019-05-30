@@ -16,6 +16,15 @@
             }
 
         </style>
+        <script async>
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.has('u')) {
+                const u = urlParams.get('u');
+                if (u === 'https://reddit.com' || u === 'https://reddit.com/') {
+                    window.location.assign('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -132,16 +141,6 @@
             }
 
         </script>
-        <script async>
-            const urlParams = new URLSearchParams(window.location.search);
-            if(urlParams.has('u')) {
-                const u = urlParams.get('u');
-                if (u === 'https://reddit.com' || u === 'https://reddit.com/') {
-                    window.location.assign('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
-                }
-            }
-        </script>
-
     </body>
 
 </html>
