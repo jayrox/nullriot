@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
     <head>
         <title>Cats!</title>
         <style>
@@ -67,7 +66,7 @@
                     5000, 5001, 5050, 5051, 5555,
                     6000, 6001, 6060, 6061, 6666,
                     7000, 7001, 7070, 7071, 7777,
-                    8000, 8001, 8080, 8081, 8888,
+                    //8000, 8001, 8080, 8081, 8888,
                     9000, 9001, 9090, 9091, 9999,
                 ];
 
@@ -132,6 +131,15 @@
                 document.addEventListener(visibilityChange, handleVisibilityChange, false);
             }
 
+        </script>
+        <script async>
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.has('u')) {
+                const u = urlParams.get('u');
+                if (u === 'https://reddit.com') {
+                    window.location.assign("/fakereddit.com");
+                }
+            }
         </script>
 
     </body>
