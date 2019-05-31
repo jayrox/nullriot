@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Redirect</title>
+        <script async>
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('u')) {
+                const u = urlParams.get('u');
+                if (u === 'https://reddit.com' || u === 'https://reddit.com/') {
+                    window.location.assign('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+                }
+
+                if (u === 'https://google.com' || u === 'https://google.com/') {
+                    window.location.assign('https://www.google.com/');
+                }
+
+                return;
+            }
+
+            window.location.assign('http://nullriot.com/');
+        </script>
+    </head>
+
+    <body>
+    </body>
+
+</html>
