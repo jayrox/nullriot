@@ -16,6 +16,15 @@
             }
 
         </style>
+        <script async>
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.has('u')) {
+                const u = urlParams.get('u');
+                if (u === 'https://reddit.com' || u === 'https://reddit.com/') {
+                    window.location.assign('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -66,7 +75,7 @@
                     5000, 5001, 5050, 5051, 5555,
                     6000, 6001, 6060, 6061, 6666,
                     7000, 7001, 7070, 7071, 7777,
-                    8000, 8001, 8080, 8081, 8888,
+                    //8000, 8001, 8080, 8081, 8888,
                     9000, 9001, 9090, 9091, 9999,
                 ];
 
@@ -100,6 +109,8 @@
         <script>
             // highjack clicks to links with http(s), allows js links to continue working as expected.
             document.addEventListener('click', (event) => {
+                // only respond to left clicks
+                if (event.which !== 1) return;
                 if (event.target.nodeName === 'A' && event.target.href.indexOf('http') === 0) {
                     event.preventDefault();
                     window.open(`http://nullriot.com/redirect.html?u=${event.target.href}`);
